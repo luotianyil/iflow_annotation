@@ -1,0 +1,10 @@
+/.idea
+/.vscode
+/.git
+/vendor
+/app
+/runtime
+/tests
+*.php
+composer.lock
+phpunit.xml

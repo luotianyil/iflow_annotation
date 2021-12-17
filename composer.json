@@ -1,0 +1,35 @@
+{
+    "minimum-stability": "stable",
+    "name": "iflow/annotation",
+    "description": "iflow_annotation",
+    "require": {
+        "php": ">=8.1.0",
+        "phpunit/phpunit": "^9.5",
+        "ext-spltype": "*"
+    },
+    "license": "MulanPSL-2.0",
+    "authors": [
+        {
+            "name": "洛水天依",
+            "email": "2461082216@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "iflow\\annotation\\": "src",
+            "app\\": "app"
+        }
+    },
+    "extra": {
+        "iflow": {
+            "config": {
+                "annotation": "src/config.php"
+            }
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "platform-check": false
+    }
+}
