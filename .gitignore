@@ -5,6 +5,6 @@
 /app
 /runtime
 /tests
-*.php
+main.php
 composer.lock
 phpunit.xml
