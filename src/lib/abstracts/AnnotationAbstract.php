@@ -15,4 +15,5 @@ abstract class AnnotationAbstract implements AnnotationInterface {
      */
     public AnnotationEnum $hookEnum = AnnotationEnum::beforeCreate;
 
+
 }

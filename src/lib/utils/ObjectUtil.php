@@ -3,18 +3,16 @@
 
 namespace iflow\annotation\lib\utils;
 
-use {
-    ReflectionNamedType,
-    ReflectionProperty,
-    ReflectionParameter,
-    ReflectionClass,
-    WeakMap
-};
+use iflow\annotation\lib\initializer\AnnotationInitializer;
+use ReflectionNamedType;
+use ReflectionProperty;
+use ReflectionParameter;
 
 class ObjectUtil {
 
-    // 临时对象存储
-    protected WeakMap $weakMap;
+    protected array $weakMap = [];
+
+    protected static ?ObjectUtil $instance = null;
 
     /**
      * 获取参数类型
@@ -32,5 +30,36 @@ class ObjectUtil {
             $types[] = $type -> getName();
         }
         return $types ?: ['mixed'];
+    }
+
+    public static function instance(): ObjectUtil {
+        $instance = static::$instance;
+        return $instance ?: self::setInstance(new static());
+    }
+
+    public static function setInstance(ObjectUtil $objectUtil): ObjectUtil {
+        static::$instance = $objectUtil;
+        return static::$instance;
+    }
+
+    public function getObject(string $class): object {
+        if ($this->hasObject($class)) return $this->weakMap[$class];
+        return $this->make($class);
+    }
+
+    public function make(&...$args): object {
+        $class = array_shift($args);
+        if (is_object($class)) {
+            $this->weakMap[$class::class] = $class;
+            return $class;
+        }
+
+        $args = [ 'classParameters' => $args ];
+        $object = $this->getObject(AnnotationInitializer::class) -> execute($class, args: $args);
+        return $this->weakMap[$class] = $object;
+    }
+
+    public function hasObject(string $class): bool {
+        return !empty($this->weakMap[$class]);
     }
 }

@@ -19,9 +19,6 @@ class Hook {
     // 实例化完成后的对象
     protected ?AnnotationAbstract $_obj = null;
 
-    public function __construct(protected Config $config) {
-    }
-
     /**
      * 执行入口
      * @param ReflectionAttribute $reflectionAttribute
@@ -72,7 +69,7 @@ class Hook {
      * @return mixed
      */
     public function hookProcess(string $hookName): mixed {
-        $_hook = $this->config -> getHook($hookName);
+        $_hook = annotation_instance(Config::class) -> getHook($hookName);
         $args = func_get_args();
         array_shift($args);
         if (is_callable($_hook) || function_exists($_hook)) return call_user_func($_hook, ...$args);
