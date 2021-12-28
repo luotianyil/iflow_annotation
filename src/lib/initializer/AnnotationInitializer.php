@@ -3,6 +3,7 @@
 
 namespace iflow\annotation\lib\initializer;
 
+use iflow\annotation\Annotation;
 use iflow\annotation\lib\Config;
 use iflow\annotation\lib\utils\hook\Hook;
 use iflow\annotation\lib\utils\ObjectUtil;
@@ -166,9 +167,5 @@ class AnnotationInitializer {
             $process -> process($reflectionClass, $args);
         }
         return $this;
-    }
-
-    protected function executeObjectLifeProcess() {
-
     }
 }

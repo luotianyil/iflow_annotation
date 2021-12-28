@@ -28,7 +28,7 @@ class Annotation extends AnnotationAbstract {
      * @param array $config
      */
     public function __construct(array $config = []) {
-        $this->config = new Config($config);
+        $this->config = annotation_instance(Config::class) -> reSetConfig($config);
         $this->fileUtils = new FileUtils();
         $this->annotationInitializer = new AnnotationInitializer($this->config);
 
@@ -69,7 +69,7 @@ class Annotation extends AnnotationAbstract {
                 $class = str_replace('/', '\\', $class);
                 if (class_exists($class) || !in_array($class, $this->useClass)) {
                     $this->classes[] = $class;
-                    $this->annotationInitializer -> loadAnnotations(new \ReflectionClass($class), true);
+                    $this->annotationInitializer -> loadAnnotations(new \ReflectionClass($class));
                 }
             }
         }

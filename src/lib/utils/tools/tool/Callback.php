@@ -30,8 +30,7 @@ class Callback extends AnnotationAbstract {
             return call_user_func([new $this -> class, $this->method], $reflector, $object, $args);
         }
 
-        return annotation_instance(AnnotationInitializer::class) -> execute($this -> class, $this->method, [
-            'parameters' => [$reflector, $object, $args]
-        ]) ;
+        $_args = [ 'parameters' => [$reflector, $object, $args] ];
+        return annotation_instance(AnnotationInitializer::class) -> execute($this -> class, $this->method, $_args);
     }
 }

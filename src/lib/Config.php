@@ -51,4 +51,14 @@ class Config {
     public function getCachePath(): string {
         return $this->config['cache_path'];
     }
+
+    /**
+     * 重置配置
+     * @param array $config
+     * @return $this
+     */
+    public function reSetConfig(array $config): static {
+        $this->config = array_merge($this->config, $config);
+        return $this;
+    }
 }
